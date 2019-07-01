@@ -67,22 +67,22 @@ class BookController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping()
-    void post(@Valid @RequestBody Book book) {
+    void post(@Valid @RequestBody BookDTO book) {
         book.setId(0);
 
-        Author author = book.getAuthor();
-        if (author != null && !authorRepository.existsById(author.getId())) {
-            author = authorRepository.save(author);
-            book.setAuthor(author);
-        }
+//        Author author = book.getAuthor();
+//        if (author != null && !authorRepository.existsById(author.getId())) {
+//            author = authorRepository.save(author);
+//            book.setAuthor(author);
+//        }
+//
+//        Category category = book.getCategory();
+//        if(category!= null && !categoryRepository.existsById(category.getId())){
+//            category = categoryRepository.save(category);
+//            book.setCategory(category);
+//        }
 
-        Category category = book.getCategory();
-        if(category!= null && !categoryRepository.existsById(category.getId())){
-            category = categoryRepository.save(category);
-            book.setCategory(category);
-        }
-
-        bookRepository.save(book);
+        bookRepository.save(bookDtoBookDaoConverter.convert(book));
     }
 
     @Secured("ROLE_ADMIN")
