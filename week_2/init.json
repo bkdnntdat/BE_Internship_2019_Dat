@@ -1,0 +1,12 @@
+{
+  "name": "Tôi thấy hoa vàng trên cỏ xanh",
+  "author": {
+    "name": "Nguyễn Nhật Ánh",
+    "country": "Việt Nam",
+    "birthday": "1955-05-07"
+  },
+  "category": {
+    "theLoai": "Truyện Dài"
+  },
+  "year": 2010
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Detective Conan",
+  "author": {
+    "name":"Aoyama Gōshō",
+    "country":"Japan",
+    "birthday":"19630621"
+  },
+  "category": {
+    "theLoai": "Truyện tranh"
+  },
+  "year": 1996
+}
