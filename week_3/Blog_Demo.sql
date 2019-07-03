@@ -19,7 +19,8 @@ create table users_roles
 	user_id int(10),
     role_id int(10),
     foreign key(user_id) references users(id),
-    foreign key(role_id) references roles(id)
+    foreign key(role_id) references roles(id),
+    primary key(user_id, role_id)
 );
 
 create table comments
