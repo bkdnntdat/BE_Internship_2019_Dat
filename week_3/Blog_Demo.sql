@@ -11,7 +11,9 @@ create table users
 (
 	id int(10) primary key,
     username varchar(50),
-    password varchar(50)
+    password varchar(50),
+    firstname nvarchar(50),
+    lastname nvarchar(50)
 );
 
 create table users_roles
@@ -19,14 +21,17 @@ create table users_roles
 	user_id int(10),
     role_id int(10),
     foreign key(user_id) references users(id),
-    foreign key(role_id) references roles(id),
-    primary key(user_id, role_id)
+    foreign key(role_id) references roles(id)
 );
 
 create table comments
 (
 	id int(10) primary key,
-    comment nvarchar(1000)
+    comment nvarchar(1000),
+    post_id int(10),
+    user_id int(10),
+    foreign key(post_id) references post(id),
+    foreign key(user_id) references user(id)
 );
 
 create table tags
@@ -41,15 +46,6 @@ create table posts
     post nvarchar(10000),
     user_id int(10),
     foreign key(user_id) references users(id)
-);
-
-create table post_comments
-(
-	post_id int(10),
-    comment_id int(10),
-    foreign key(post_id) references posts(id),
-    foreign key(comment_id) references comments(id),
-    primary key(comment_id)
 );
 
 create table post_tags
