@@ -1,0 +1,35 @@
+.float-right {
+    float: right;
+}
+
+.backgroudBlack {
+    background: rgb(52, 58, 64);
+}
+
+.grad1 {
+    background-image: linear-gradient(to right, black, white);
+}
+
+.marginTop {
+    margin-top: 200px;
+}
+
+.colorWhite {
+    color: white;
+}
+
+.cangiua {
+    margin: 0 auto;
+}
+
+#form-control {
+    height: 300px;
+}
+
+.inline {
+    display: inline;
+}
+
+.block{
+    display: block;
+}

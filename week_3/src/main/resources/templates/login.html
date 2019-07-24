@@ -1,0 +1,39 @@
+<!DocType html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" type="text/css" href="css/container.css">
+    <link rel="icon" href="https://img.icons8.com/cotton/2x/home.png">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="grad1 marginTop">
+    <div class="container">
+        <form action="/logining" method="Post">
+            <div class="row">
+                <h2 style="text-align:center">Login</h2>
+            </div>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login" class="grad1">
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="/signup" method="GET">
+                    <button type="submit" class="btn btn-success grad1 colorWhite">Sign up</button>
+                </form>
+            </div>
+            <div class="col">
+                <form action="/forgotpassword" method="get">
+                    <button type="submit" class="btn btn-success grad1 colorWhite">Forgot password?</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,10 +1,13 @@
-package com.dat.blog;
+package com.dat.blog.models;
 
+import com.dat.blog.role.User;
 import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,12 +17,27 @@ public class Post {
     private int id;
 
     @NonNull
-    @NotBlank(message = "Bạn đang nghĩ gì")
-    private String post;
+    @NotBlank
+    private String title;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    Tag tag;
+    @NonNull
+    @NotBlank
+    private String content;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    Comment comments;
+    private String description;
+
+    @ManyToMany
+    private List<Tag> tags;
+
+    @OneToMany
+    private List<Comment> comments;
+
+    private Date time;
+
+    private Date timeUpdate;
+
+    @ManyToOne
+    private User user;
+
+    public Post(){}
 }
