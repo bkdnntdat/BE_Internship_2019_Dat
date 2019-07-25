@@ -245,9 +245,11 @@ public class MainController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/userManager", method = RequestMethod.GET)
-    public String userInfo(Model model) {
+    public String userInfo(Model model, HttpSession session) {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
+        model.addAttribute("avt", userRepository.findByUsername(session.getAttribute("username").toString()).getAvt());
+
         return "userManager";
     }
 
