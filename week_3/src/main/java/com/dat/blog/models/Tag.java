@@ -1,10 +1,11 @@
-package com.dat.blog;
+package com.dat.blog.models;
 
 import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,6 +16,7 @@ public class Tag {
 
     @NotBlank
     @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    private String category;
+    private String name;
+
+    public Tag(){}
 }

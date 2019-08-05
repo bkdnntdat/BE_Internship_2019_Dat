@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/javascript.js"></script>
+    <script src="/js/prettydate.js"></script>
+    <script src="/js/jquery.atagsinput.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.atagsinput.min.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
+</head>
+
+<body class="row">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="width:100%">
+    <form action="/home" class="col-lg-2">
+        <button type="submit" class="btn btn-primary backgroudBlack" style="width:100%">Home</button>
+    </form>
+    <form class="form-inline col-lg-8" action="/find">
+        <input class="form-control col-lg-9" type="text" placeholder="Search">
+        <button class="btn btn-success col-lg-3 backgroudBlack" type="submit">Find</button>
+    </form>
+    <div class="col-lg-1">
+        <a class="container">
+            <a th:href="@{/profile(username=${session.username})}" class="cangiua">
+                <img th:src="@{${avt}}" alt="Avt" class="rounded-circle" width="40px">
+            </a>
+        </a>
+    </div>
+    <form action="/logout" method="get" class="col-lg-1">
+        <button type="submit" class="btn btn-danger floatRight backgroudBlack" style="width:100%">Logout</button>
+    </form>
+</nav>
+
+<div class="container">
+    <div class="col-lg-9 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <form class="form-horizontal" action="/editPost" method="post">
+            <input id = "title" class="form-control col-lg-12" name="title" type="text" placeholder="Title" th:value="${post.title}">
+
+            <textarea id="content" class="form-control col-lg-12 rich-text" name="content" style="height:300px" type="text" placeholder="Content">[[${post.content}]]</textarea>
+
+            <input id="tags" class="form-control col-lg-9 tagsInputs" name="tag" type="text" placeholder="Tag" th:value="${tags}">
+            <input type="hidden" th:value="${postid}" name="id">
+            <button class="btn btn-success col-lg-3 backgroudBlack savepost" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+</body>

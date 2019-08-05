@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="width:100%">
+        <form action="/home" class="col-lg-2">
+            <button type="submit" class="btn btn-primary backgroudBlack" style="width:100%">Home</button>
+        </form>
+        <form class="form-inline col-lg-6" action="/find">
+            <input class="form-control col-lg-9" type="text" name="search" placeholder="Search">
+            <button class="btn btn-success col-lg-3 backgroudBlack" type="submit">Find</button>
+        </form>
+
+        <form action="/userManager" method="get" class="col-lg-2">
+            <button type="submit" class="btn btn-primary backgroudBlack" style="width:100%">User Manager</button>
+        </form>
+
+        <div class="col-lg-1">
+            <a class="container">
+                <a th:href="@{/profile(username=${session.username})}" class="cangiua">
+                    <img th:src="@{${avt}}" alt="Avt" class="rounded-circle" width="40px">
+                </a>
+            </a>
+        </div>
+        <form action="/logout" method="get" class="col-lg-1">
+            <button type="submit" class="btn btn-danger floatRight backgroudBlack" style="width:100%">Logout</button>
+        </form>
+    </nav>
+    <div class="container">
+        <h2>Profiles</h2>
+        <div class="row">
+            <tr th:each="user : ${users}">
+                <div class="card col-lg-3" style="width:400px">
+                    <img class="card-img-top" th:src="@{${user.avt}}" alt="Avt" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <form action="/profile" , method="POST">
+                                <a th:href="@{/profile(username=${user.username})}" th:text="${user.username}"></a>
+                            </form>
+                        </h4>
+                        <h6>
+                            <p th:text="${user.role}">
+                        </h6>
+                        <form action="/setRoleAdmin" , method="POST">
+                            <a th:href="@{/setRoleAdmin(username=${user.username})}">Set Role Admin</a>
+                        </form>
+                    </div>
+                </div>
+            </tr>
+        </div>
+    </div>
+</body>
+
+</html>

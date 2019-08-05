@@ -15,6 +15,8 @@ create table users
     lastname nvarchar(50),
     email varchar(50),
     phone_number varchar(11)
+    lastname nvarchar(50)
+
 );
 
 create table users_roles
