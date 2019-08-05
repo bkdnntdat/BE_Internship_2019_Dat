@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="css/container.css">
+    <link rel="icon" href="https://img.icons8.com/cotton/2x/home.png">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="container">
+    <form action="/confirmEmail" method="Post">
+        <div class="row">
+            <h2 style="text-align:center">Nhập mã xác nhận</h2>
+        </div>
+        <input type="text" name="codeConfirm" placeholder="Code confirm">
+        <input type="hidden" name="username" th:value="${username}">
+        <input type="hidden" name="password" th:value="${password}">
+        <input type="submit" value="Confirm" class="grad1">
+    </form>
+</div>
+</body>
+
+</html>

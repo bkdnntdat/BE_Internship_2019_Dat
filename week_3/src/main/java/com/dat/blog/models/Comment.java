@@ -1,13 +1,12 @@
-package com.dat.blog;
+package com.dat.blog.models;
 
+import com.dat.blog.role.User;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Data
 @Entity
@@ -18,5 +17,12 @@ public class Comment {
 
     @NonNull
     @NotBlank(message = "Nhập bình luận của bạn")
-    private String comment;
+    private String content;
+
+    private Date time;
+
+    @ManyToOne
+    private User user;
+
+    public Comment(){}
 }
