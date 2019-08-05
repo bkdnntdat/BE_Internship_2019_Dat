@@ -1,6 +1,5 @@
 package com.dat.book_management.configurations;
 
-
 import com.dat.book_management.repositories.RoleRepository;
 import com.dat.book_management.repositories.UserRepository;
 import com.dat.book_management.roles.Role;
@@ -29,7 +28,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
     private void addRoleIfMissing(String name) {
         if (roleRepository.findByName(name) == null) {
-            roleRepository.save(new Role(name));
+            Role role = new Role();
+            role.setName(name);
+            roleRepository.save(role);
         }
     }
 

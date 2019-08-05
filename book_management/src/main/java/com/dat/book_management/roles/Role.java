@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@RequiredArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

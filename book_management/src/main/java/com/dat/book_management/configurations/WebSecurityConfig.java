@@ -36,11 +36,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.cors().disable();
         httpSecurity.csrf().disable();
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**").permitAll()
-                .antMatchers("/login","/").permitAll()
+                .antMatchers("/css/**","**/css/**","/js/**", "**/js/**", "/images/**","/fonts/**" ,"**/fonts/**", "**/scss/**"
+                        ,"**/less/**", "**/font-awesome-4.7.0/**","**/iconic/**","**/JosefinSans/**","**/source-sans-pro/**", "/vendor/**"
+                        ,"**/icons/**", "**/animate/**","**/animsition/**","**/bootrap/**","**/countdowntime/**"
+                        ,"**/css-hamburgers/**","**/daterangepicker/**","**/jquery/**","**/perfect-scrollbar/**","**/select2/**").permitAll()
+                .antMatchers("/login","/", "/logining").permitAll()
                 .anyRequest()
                 .authenticated();
     }
