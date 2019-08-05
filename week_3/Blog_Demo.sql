@@ -3,8 +3,7 @@ use blogdemo;
 create table roles
 (
 	id int(10) primary key,
-    name varchar(50),
-    description varchar(500)
+    name varchar(50)
 );
 
 create table users
@@ -13,7 +12,11 @@ create table users
     username varchar(50),
     password varchar(50),
     firstname nvarchar(50),
+    lastname nvarchar(50),
+    email varchar(50),
+    phone_number varchar(11)
     lastname nvarchar(50)
+
 );
 
 create table users_roles
@@ -30,6 +33,7 @@ create table comments
     comment nvarchar(1000),
     post_id int(10),
     user_id int(10),
+    time datetime,
     foreign key(post_id) references post(id),
     foreign key(user_id) references user(id)
 );
@@ -37,14 +41,16 @@ create table comments
 create table tags
 (
 	id int(10) primary key,
-    category nvarchar(50)
+    name nvarchar(50)
 );
 
 create table posts
 (
 	id int(10) primary key,
-    post nvarchar(10000),
+	title nvarchar(500),
+    content nvarchar(10000),
     user_id int(10),
+    time datetime,
     foreign key(user_id) references users(id)
 );
 
