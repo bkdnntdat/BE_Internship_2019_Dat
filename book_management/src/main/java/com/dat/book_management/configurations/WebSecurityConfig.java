@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         ,"**/less/**", "**/font-awesome-4.7.0/**","**/iconic/**","**/JosefinSans/**","**/source-sans-pro/**", "/vendor/**"
                         ,"**/icons/**", "**/animate/**","**/animsition/**","**/bootrap/**","**/countdowntime/**"
                         ,"**/css-hamburgers/**","**/daterangepicker/**","**/jquery/**","**/perfect-scrollbar/**","**/select2/**").permitAll()
-                .antMatchers("/login","/", "/logining","/signup").permitAll()
+                .antMatchers("/login","/", "/logining","/signup","/home").permitAll()
                 .anyRequest()
                 .authenticated();
     }
