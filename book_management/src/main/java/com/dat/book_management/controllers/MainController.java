@@ -4,6 +4,7 @@ import com.dat.book_management.models.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class MainController {
     @Autowired
@@ -12,15 +13,6 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String page(){
         return "index.html";
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/logining", method = RequestMethod.POST)
-    public String logining(@RequestBody Login login){
-
-        authenticationController.login(login);
-
-        return login.getEmail();
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
