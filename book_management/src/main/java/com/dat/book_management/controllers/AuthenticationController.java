@@ -23,13 +23,15 @@ public class AuthenticationController {
 
     @PostMapping("api/login")
     public ResponseEntity<?> login(@RequestBody Login login){
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        login.getEmail(),
-                        login.getPassword()
-                )
-        );
+        String email = login.getEmail();
+        String password = login.getPassword();
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         final String token = jwrTokenUtil.generateToken(authentication);
 
         return ResponseEntity.ok(new AuthToken(token));
