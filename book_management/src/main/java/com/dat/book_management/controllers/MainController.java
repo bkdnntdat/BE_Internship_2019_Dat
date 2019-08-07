@@ -1,6 +1,5 @@
 package com.dat.book_management.controllers;
 
-import com.dat.book_management.configurations.MailConfig;
 import com.dat.book_management.models.Login;
 import com.dat.book_management.repositories.RoleRepository;
 import com.dat.book_management.repositories.UserRepository;
@@ -33,14 +32,6 @@ public class MainController {
         return "index.html";
     }
 
-    @RequestMapping(value = "/logining", method = RequestMethod.POST)
-    public User logining(@RequestBody Login login){
-
-        authenticationController.login(login);
-
-        return userRepository.findByEmail(login.getEmail());
-    }
-
 //    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public User signup(@RequestBody User user){
@@ -54,8 +45,6 @@ public class MainController {
 
         user.setRole(roleRepository.findByName("ROLE_MEMBER"));
 
-        user = userRepository.save(user);
-
         StringBuilder builder = new StringBuilder();
 
         for(int i=0; i<6; i++){
@@ -65,6 +54,8 @@ public class MainController {
         String code = builder.toString();
 
         user.setCode(code);
+
+        user = userRepository.save(user);
 
         sendEmail(user.getEmail(), code);
 
@@ -92,7 +83,8 @@ public class MainController {
     }
 
 //    @RequestMapping(value = "/confirmCode", method = RequestMethod.POST)
-//    public User confirmCode(@RequestBody String code, User user){
+//    public User confirmCode(@RequestBody CodeConfirm codeConfirm){
+//
 //        return new User();
 //    }
 }
