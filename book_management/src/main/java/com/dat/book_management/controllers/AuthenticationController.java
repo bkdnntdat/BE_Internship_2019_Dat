@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     @Autowired
@@ -21,7 +22,7 @@ public class AuthenticationController {
     @Autowired
     private TokenProvider jwrTokenUtil;
 
-    @PostMapping("api/login")
+    @PostMapping
     public ResponseEntity<?> login(@RequestBody Login login){
         String email = login.getEmail();
         String password = login.getPassword();
@@ -35,5 +36,10 @@ public class AuthenticationController {
         final String token = jwrTokenUtil.generateToken(authentication);
 
         return ResponseEntity.ok(new AuthToken(token));
+    }
+
+    @DeleteMapping
+    public void logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }
