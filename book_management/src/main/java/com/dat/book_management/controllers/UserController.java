@@ -1,5 +1,7 @@
 package com.dat.book_management.controllers;
 
+import com.dat.book_management.configurations.TokenProvider;
+import com.dat.book_management.models.AuthToken;
 import com.dat.book_management.models.Login;
 import com.dat.book_management.repositories.RoleRepository;
 import com.dat.book_management.repositories.UserRepository;
@@ -28,7 +30,10 @@ public class UserController {
     private MailSender mailSender;
 
     @Autowired
-    AuthenticationController authenticationController;
+    private AuthenticationController authenticationController;
+
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @PostMapping
     public ResponseEntity<?> signUp(@RequestBody User user){
@@ -64,4 +69,28 @@ public class UserController {
 
         return authenticationController.login(login);
     }
+
+    @PostMapping("/confirm")
+    public ResponseEntity<?> confirm(@RequestBody CodeToken codeToken){
+        final String token = codeToken.token;
+        String email = tokenProvider.getUsernameFromToken(codeToken.token).toLowerCase();
+        User user = userRepository.findByEmail(email);
+
+        if(user.getCode().equals(codeToken.code)){
+            user.setCode(null);
+            userRepository.save(user);
+            return ResponseEntity.ok(new AuthToken(codeToken.token));
+        }
+        return null;
+    }
+
+    @GetMapping
+    public User getUser(@RequestParam String token){
+        return userRepository.findByEmail(tokenProvider.getUsernameFromToken(token));
+    }
+}
+
+class CodeToken{
+    String code;
+    String token;
 }
