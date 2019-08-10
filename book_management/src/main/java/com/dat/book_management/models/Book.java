@@ -20,8 +20,8 @@ public class Book {
 
     private String title;
 
-    @ManyToOne
-    private Author author;
+//    @ManyToOne
+    private String author;
 
     private String description;
 

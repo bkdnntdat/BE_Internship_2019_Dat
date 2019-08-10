@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Random;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -85,8 +86,13 @@ public class UserController {
     }
 
     @GetMapping
-    public User getUser(@RequestParam String token){
-        return userRepository.findByEmail(tokenProvider.getUsernameFromToken(token));
+    public List<User> getUsers(){
+        return userRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable int id){
+        return userRepository.findById(id).get();
     }
 }
 
