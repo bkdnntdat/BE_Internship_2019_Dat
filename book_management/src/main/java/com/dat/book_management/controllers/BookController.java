@@ -40,4 +40,11 @@ public class BookController {
         book = bookRepository.save(book);
         return book;
     }
+
+    @PutMapping("/books")
+    public void enableBook(@RequestBody List<Book> books){
+        for(Book book : books){
+            bookRepository.save(book);
+        }
+    }
 }
