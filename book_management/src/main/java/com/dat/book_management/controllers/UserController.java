@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,14 +84,19 @@ public class UserController {
         return null;
     }
 
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable int id){
+        return userRepository.findById(id).get();
+    }
+
     @GetMapping
     public List<User> getUsers(){
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable int id){
-        return userRepository.findById(id).get();
+    @GetMapping("/token")
+    public User getUserByToken(@RequestParam String token){
+        return userRepository.findByEmail(tokenProvider.getUsernameFromToken(token));
     }
 }
 

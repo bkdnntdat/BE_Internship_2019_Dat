@@ -24,6 +24,7 @@ public class BookController {
     @PostMapping
     public Book postBook(@RequestBody Book book){
         book.setCreatedAt(new Date());
+        book.setEnabled(true);
         bookRepository.save(book);
         return book;
     }
