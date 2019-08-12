@@ -8,5 +8,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book,Integer> {
     List<Book> findByTitle(String title);
     List<Book> findByTitleContaining(String title);
+    List<Book> findByEnabled(boolean enabled);
 
 }

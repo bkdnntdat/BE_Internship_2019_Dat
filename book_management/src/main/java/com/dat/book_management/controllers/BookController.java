@@ -16,9 +16,10 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+
     @GetMapping
-    public List<Book> getBooks(){
-        return bookRepository.findAll();
+    public List<Book> getBooksEnabled(@RequestParam Boolean enabled){
+        return bookRepository.findByEnabled(enabled);
     }
 
     @PostMapping
