@@ -19,13 +19,13 @@ public class BookController {
 
     @GetMapping
     public List<Book> getBooksEnabled(@RequestParam Boolean enabled){
-        return bookRepository.findByEnabled(enabled);
+        List<Book> bookList =bookRepository.findByEnabled(enabled);
+        return bookList;
     }
 
     @PostMapping
     public Book postBook(@RequestBody Book book){
         book.setCreatedAt(new Date());
-        book.setEnabled(true);
         bookRepository.save(book);
         return book;
     }
@@ -47,5 +47,10 @@ public class BookController {
         for(Book book : books){
             bookRepository.save(book);
         }
+    }
+
+    @DeleteMapping
+    public void deteleBook(@RequestParam int id){
+        bookRepository.deleteById(id);
     }
 }

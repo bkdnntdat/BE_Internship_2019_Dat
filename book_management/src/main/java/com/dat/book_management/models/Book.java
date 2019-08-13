@@ -35,6 +35,8 @@ public class Book {
 
     private boolean enabled;
 
+    private int year;
+
     @ManyToOne
     private User user;
 }
