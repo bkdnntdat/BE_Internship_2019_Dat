@@ -20,7 +20,7 @@ import java.util.Random;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -28,8 +28,8 @@ public class UserController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private MailSender mailSender;
+//    @Autowired
+//    private MailSender mailSender;
 
     @Autowired
     private AuthenticationController authenticationController;
@@ -49,42 +49,42 @@ public class UserController {
         login.setEmail(user.getEmail());
         login.setPassword(user.getPassword());
 
-        StringBuilder builder = new StringBuilder();
+//        StringBuilder builder = new StringBuilder();
+//
+//        for(int i=0; i<6; i++){
+//            builder.append(new Random().nextInt(10));
+//        }
 
-        for(int i=0; i<6; i++){
-            builder.append(new Random().nextInt(10));
-        }
-
-        user.setCode(builder.toString());
+//        user.setCode(builder.toString());
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
         user = userRepository.save(user);
 
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setTo(user.getEmail());
-        message.setSubject("[Mã xác nhận]");
-        message.setText("Mã xác nhận của bạn là: " + user.getCode());
-
-        mailSender.send(message);
+//        SimpleMailMessage message = new SimpleMailMessage();
+//
+//        message.setTo(user.getEmail());
+//        message.setSubject("[Mã xác nhận]");
+//        message.setText("Mã xác nhận của bạn là: " + user.getCode());
+//
+//        mailSender.send(message);
 
         return authenticationController.login(login);
     }
 
-    @PostMapping("/confirm")
-    public ResponseEntity<?> confirm(@RequestBody CodeToken codeToken){
-        final String token = codeToken.token;
-        String email = tokenProvider.getUsernameFromToken(codeToken.token).toLowerCase();
-        User user = userRepository.findByEmail(email);
-
-        if(user.getCode().equals(codeToken.code)){
-            user.setCode(null);
-            userRepository.save(user);
-            return ResponseEntity.ok(new AuthToken(codeToken.token));
-        }
-        return null;
-    }
+//    @PostMapping("/confirm")
+//    public ResponseEntity<?> confirm(@RequestBody CodeToken codeToken){
+//        final String token = codeToken.token;
+//        String email = tokenProvider.getUsernameFromToken(codeToken.token).toLowerCase();
+//        User user = userRepository.findByEmail(email);
+//
+//        if(user.getCode().equals(codeToken.code)){
+//            user.setCode(null);
+//            userRepository.save(user);
+//            return ResponseEntity.ok(new AuthToken(codeToken.token));
+//        }
+//        return null;
+//    }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable int id){
@@ -96,14 +96,14 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/token")
+    @GetMapping("/user")
     public User getUserByToken(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findByEmail(authentication.getName());
     }
 }
 
-class CodeToken{
-    String code;
-    String token;
-}
+//class CodeToken{
+//    String code;
+//    String token;
+//}

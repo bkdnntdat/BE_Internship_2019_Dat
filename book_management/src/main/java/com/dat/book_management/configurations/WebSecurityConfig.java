@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().and().csrf().disable()
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers( "/auth","/api/books").permitAll()
+                .antMatchers( "/api/auth","/api/books/**","/api/users/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }
