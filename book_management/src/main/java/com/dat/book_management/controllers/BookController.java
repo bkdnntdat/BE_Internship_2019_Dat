@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/api/books")
 public class BookController {
     @Autowired
     private BookRepository bookRepository;
@@ -34,7 +34,6 @@ public class BookController {
         return bookList;
     }
 
-    @Secured("ROLE_ADMIN")
     @PostMapping
     public Book postBook(@Valid @RequestBody Book book){
         book.setCreatedAt(new Date());
