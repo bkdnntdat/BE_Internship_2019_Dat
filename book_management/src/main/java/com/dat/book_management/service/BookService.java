@@ -1,7 +1,9 @@
 package com.dat.book_management.service;
 
+import com.dat.book_management.DTO.BookDTO;
 import com.dat.book_management.models.Book;
 import com.dat.book_management.repositories.BookRepository;
+import com.dat.book_management.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,13 +18,22 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Book> getBooksEnabled(Boolean enabled){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Book> bookList = bookRepository.findByEnabled(enabled);
         return bookList;
     }
 
-    public Book postBook(Book book){
+    public Book postBook(BookDTO bookDTO){
+        Book book = new Book();
+        book.setTitle(bookDTO.getTitle());
+        book.setDescription(bookDTO.getDescription());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setYear(bookDTO.getYear());
+        book.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         book.setCreatedAt(new Date());
         book.setUpdatedAt(new Date());
         bookRepository.save(book);
@@ -40,7 +51,12 @@ public class BookService {
         return bookRepository.findByUserEmail(currentPrincipalName);
     }
 
-    public Book updateBook(Book book){
+    public Book updateBook(BookDTO bookDTO){
+        Book book = bookRepository.findById(bookDTO.getId()).get();
+        book.setTitle(bookDTO.getTitle());
+        book.setDescription(bookDTO.getDescription());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setYear(bookDTO.getYear());
         book.setUpdatedAt(new Date());
         book = bookRepository.save(book);
         return book;

@@ -1,5 +1,7 @@
 package com.dat.book_management.controllers;
 
+import com.dat.book_management.DTO.BookDTO;
+import com.dat.book_management.DTO.CommentDTO;
 import com.dat.book_management.models.Book;
 import com.dat.book_management.models.Comment;
 import com.dat.book_management.service.BookService;
@@ -50,12 +52,12 @@ public class BookController {
     }
 
     @PostMapping
-    public Book postBook(@Valid @RequestBody Book book){
+    public Book postBook(@Valid @RequestBody BookDTO book){
         return bookService.postBook(book);
     }
 
     @PutMapping
-    public Book updateBook(@RequestBody Book book){
+    public Book updateBook(@Valid @RequestBody BookDTO book){
         return bookService.updateBook(book);
     }
 
@@ -78,7 +80,7 @@ public class BookController {
     }
 
     @PostMapping("/comments")
-    public Comment postComment(@RequestBody Comment comment){
+    public Comment postComment(@Valid @RequestBody CommentDTO comment){
         return commentService.postComment(comment);
     }
 }

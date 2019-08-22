@@ -1,22 +1,19 @@
 package com.dat.book_management.controllers;
 
 import com.dat.book_management.configurations.TokenProvider;
-import com.dat.book_management.models.AuthToken;
 import com.dat.book_management.models.Login;
 import com.dat.book_management.repositories.RoleRepository;
 import com.dat.book_management.repositories.UserRepository;
 import com.dat.book_management.roles.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Random;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -38,7 +35,7 @@ public class UserController {
     private TokenProvider tokenProvider;
 
     @PostMapping
-    public ResponseEntity<?> signUp(@RequestBody User user){
+    public ResponseEntity<?> signUp(@Valid @RequestBody User user){
         if(userRepository.findByEmail(user.getEmail()) !=null){
             return null;
         }
