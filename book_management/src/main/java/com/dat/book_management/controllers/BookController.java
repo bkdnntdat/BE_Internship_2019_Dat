@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -51,6 +52,27 @@ public class BookController {
         return bookService.getMyBooks();
     }
 
+    @GetMapping("/getPage")
+    public List<Book> getPage(@RequestParam int page, @RequestParam int items, @RequestParam String sortBy){
+        List<Book> bookList = new ArrayList<>();
+        List<Book> books = getBooksEnabled();
+        if(sortBy.equals("author")){
+            bookService.sortByAuthor(books);
+        }if(sortBy.equals("title")){
+            bookService.sortByTitle(books);
+        }if(sortBy.equals("year")){
+            bookService.sortByYear(books);
+        }
+        int n = (page+1)*items;
+        if(n>books.size()) n=books.size();
+        for(int i=page*items; i<n; i++) {
+            bookList.add(books.get(i));
+        }
+
+
+        return bookList;
+    }
+
     @PostMapping
     public Book postBook(@Valid @RequestBody BookDTO book){
         return bookService.postBook(book);
@@ -61,13 +83,11 @@ public class BookController {
         return bookService.updateBook(book);
     }
 
-//    @PutMapping("/books")
-//    public void enableBook(@RequestBody List<Book> books){
-//        for(Book book : books){
-//            bookRepository.save(book);
-//        }
-
-//    }
+    @Secured("ROLE_ADMIN")
+    @PutMapping("/enable")
+    public void enableBook(@Valid @RequestBody List<BookDTO> books){
+        bookService.enableBook(books);
+    }
 
     @DeleteMapping
     public void deteleBook(@RequestParam int id){

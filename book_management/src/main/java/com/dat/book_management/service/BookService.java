@@ -62,6 +62,51 @@ public class BookService {
         return book;
     }
 
+    public void enableBook(List<BookDTO> bookDTOs){
+        for(BookDTO bookDTO : bookDTOs){
+            Book book = bookRepository.findById(bookDTO.getId()).get();
+            book.setEnabled(bookDTO.isEnabled());
+            book = bookRepository.save(book);
+            bookRepository.save(book);
+        }
+    }
+
+    public void sortByAuthor(List<Book> books) {
+        for (int i = 0; i < books.size(); i++)
+            for (int j = i + 1; j < books.size(); j++) {
+                if (books.get(i).getAuthor().compareTo(books.get(j).getAuthor()) > 0) {
+                    Book book = books.get(i);
+                    books.set(i, books.get(j));
+                    books.set(j, book);
+                    j--;
+                }
+            }
+    }
+
+    public void sortByTitle(List<Book> books){
+        for(int i=0; i<books.size(); i++)
+            for(int j=i+1; j<books.size(); j++){
+                if(books.get(i).getTitle().compareTo(books.get(j).getTitle())>0){
+                    Book book = books.get(i);
+                    books.set(i,books.get(j));
+                    books.set(j,book);
+                    j--;
+                }
+            }
+    }
+
+    public void sortByYear(List<Book> books){
+        for(int i=0; i<books.size(); i++)
+            for(int j=i+1; j<books.size(); j++){
+                if(books.get(i).getYear()>books.get(j).getYear()){
+                    Book book = books.get(i);
+                    books.set(i,books.get(j));
+                    books.set(j,book);
+                    j--;
+                }
+            }
+    }
+
     public void deteleBook(int id){
         bookRepository.deleteById(id);
     }

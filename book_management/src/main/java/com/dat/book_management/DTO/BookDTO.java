@@ -20,4 +20,7 @@ public class BookDTO {
 
     @NotNull
     private int year;
+
+    @NotNull
+    private boolean enabled;
 }
