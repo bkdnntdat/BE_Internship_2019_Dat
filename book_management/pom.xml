@@ -236,6 +236,7 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+		<finalName>BookManagerment</finalName>
 	</build>
 
 </project>

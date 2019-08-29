@@ -54,23 +54,7 @@ public class BookController {
 
     @GetMapping("/getPage")
     public List<Book> getPage(@RequestParam int page, @RequestParam int items, @RequestParam String sortBy){
-        List<Book> bookList = new ArrayList<>();
-        List<Book> books = getBooksEnabled();
-        if(sortBy.equals("author")){
-            bookService.sortByAuthor(books);
-        }if(sortBy.equals("title")){
-            bookService.sortByTitle(books);
-        }if(sortBy.equals("year")){
-            bookService.sortByYear(books);
-        }
-        int n = (page+1)*items;
-        if(n>books.size()) n=books.size();
-        for(int i=page*items; i<n; i++) {
-            bookList.add(books.get(i));
-        }
-
-
-        return bookList;
+        return bookService.getPage(page,items,sortBy);
     }
 
     @PostMapping

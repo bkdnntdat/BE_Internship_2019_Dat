@@ -51,6 +51,33 @@ public class BookService {
         return bookRepository.findByUserEmail(currentPrincipalName);
     }
 
+    public List<Book> getPage(int page, int items, String sortBy){
+        List<Book> bookList = new ArrayList<>();
+        List<Book> books = getBooksEnabled(true);
+        if(sortBy.equals("author")){
+            sortByAuthor(books);
+        }if(sortBy.equals("title")){
+            sortByTitle(books);
+        }if(sortBy.equals("year")){
+            sortByYear(books);
+        }if(sortBy.equals("createdAt")){
+
+        }
+        if(sortBy.equals("updatedAt")){
+
+        }
+        if(sortBy.equals("createdAt")){
+
+        }
+        int n = (page+1)*items;
+        if(n>books.size()) n=books.size();
+        for(int i=page*items; i<n; i++) {
+            bookList.add(books.get(i));
+        }
+
+        return bookList;
+    }
+
     public Book updateBook(BookDTO bookDTO){
         Book book = bookRepository.findById(bookDTO.getId()).get();
         book.setTitle(bookDTO.getTitle());
