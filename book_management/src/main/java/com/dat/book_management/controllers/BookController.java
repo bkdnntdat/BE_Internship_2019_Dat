@@ -85,8 +85,14 @@ public class BookController {
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/enable")
-    public void enableBook(@Valid @RequestBody List<BookDTO> books){
-        bookService.enableBook(books);
+    public List<Book> enableBook(@RequestBody int id){
+        return bookService.enableBook(id);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PutMapping("/disable")
+    public List<Book> disableBook(@RequestBody int id){
+        return bookService.disableBook(id);
     }
 
     @DeleteMapping

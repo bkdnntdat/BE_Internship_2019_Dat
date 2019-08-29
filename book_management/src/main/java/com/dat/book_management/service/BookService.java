@@ -62,13 +62,18 @@ public class BookService {
         return book;
     }
 
-    public void enableBook(List<BookDTO> bookDTOs){
-        for(BookDTO bookDTO : bookDTOs){
-            Book book = bookRepository.findById(bookDTO.getId()).get();
-            book.setEnabled(bookDTO.isEnabled());
-            book = bookRepository.save(book);
-            bookRepository.save(book);
-        }
+    public List<Book> enableBook(int id) {
+        Book book = bookRepository.findById(id).get();
+        book.setEnabled(true);
+        book = bookRepository.save(book);
+        return getBooksEnabled(false);
+    }
+
+    public List<Book> disableBook(int id){
+        Book book = bookRepository.findById(id).get();
+        book.setEnabled(false);
+        book = bookRepository.save(book);
+        return getBooksEnabled(true);
     }
 
     public void sortByAuthor(List<Book> books) {
